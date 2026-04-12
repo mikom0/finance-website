@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Revision | Imperial College London</title>
+    <meta name="description" content="Finance &amp; Financial Management exam revision — Prof. Claudia Custodio, Imperial College London">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- MathJax configuration BEFORE the script loads -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: {'[+]': ['ams']}
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            },
+            startup: {
+                typeset: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body class="light-mode">
+<div class="app-wrapper">
+
+    <!-- ═══════════════════════════════════════════════
+         TOP BAR
+    ═══════════════════════════════════════════════ -->
+    <header class="topbar" id="topbar">
+        <div class="topbar-left">
+            <button class="hamburger-btn" id="hamburger-btn"
+                    aria-label="Toggle navigation" aria-expanded="false"
+                    aria-controls="sidebar">
+                <span class="hb-line"></span>
+                <span class="hb-line"></span>
+                <span class="hb-line"></span>
+            </button>
+            <div class="brand">
+                <span class="brand-logo">IC</span>
+                <div class="brand-text">
+                    <span class="brand-title">Finance Revision</span>
+                    <span class="brand-sub">Prof. Custodio · Imperial College</span>
+                </div>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="streak-badge" id="streak-badge" title="Study streak">
+                <span class="streak-fire">🔥</span>
+                <strong id="streak-count">0</strong>
+                <span class="streak-label">day streak</span>
+            </div>
+            <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         LAYOUT CONTAINER
+    ═══════════════════════════════════════════════ -->
+    <div class="layout-body">
+
+        <!-- ── SIDEBAR ─────────────────────────────── -->
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="sidebar-header">
+                <div class="sidebar-logo-ring">IC</div>
+                <div>
+                    <div class="sidebar-title">Finance Revision</div>
+                    <div class="sidebar-subtitle">Prof. Claudia Custodio</div>
+                </div>
+            </div>
+
+            <ul class="nav-menu" role="list">
+                <li class="nav-group-label">Overview</li>
+                <li>
+                    <a class="nav-link active" data-section="dashboard" href="#dashboard" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-group-label">Study Modes</li>
+                <li>
+                    <a class="nav-link" data-section="flashcards" href="#flashcards" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                            <path d="M2 10h20"/>
+                        </svg>
+                        <span>Flashcards</span>
+                        <span class="nav-badge" id="nav-due-badge"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" data-section="mcq" href="#mcq" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Quiz</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" data-section="long-answer" href="#long-answer" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="18" x2="14" y2="18"/>
+                        </svg>
+                        <span>Long Answer</span>
+                    </a>
+                </li>
+
+                <li class="nav-group-label">Reference</li>
+                <li>
+                    <a class="nav-link" data-section="formula-sheet" href="#formula-sheet" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                        <span>Formulas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" data-section="checkpoints" href="#checkpoints" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <span>Checkpoints</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" data-section="weak-topics" href="#weak-topics" role="listitem">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                        <span>Weak Topics</span>
+                        <span class="nav-badge danger" id="nav-weak-badge"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <p>Finance &amp; Financial Management</p>
+                <p>4th Year · 2025–26</p>
+            </div>
+        </nav>
+
+        <!-- ── SIDEBAR OVERLAY (mobile) ────────────── -->
+        <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+        <!-- ═══════════════════════════════════════════
+             MAIN CONTENT AREA
+        ═══════════════════════════════════════════ -->
+        <main class="main-content" id="main-content" role="main">
+
+            <!-- DASHBOARD PAGE -->
+            <section class="page active" id="page-dashboard" data-page="dashboard">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Track your progress across all 10 topic areas</p>
+                </div>
+                <div id="dashboard-root"></div>
+            </section>
+
+            <!-- FLASHCARDS PAGE -->
+            <section class="page" id="page-flashcards" data-page="flashcards">
+                <div class="page-header">
+                    <h1 class="page-title">Flashcards</h1>
+                    <p class="page-subtitle">210+ cards — every formula, concept, worked example, and exam trap</p>
+                </div>
+                <div id="flashcard-root"></div>
+            </section>
+
+            <!-- MCQ QUIZ PAGE -->
+            <section class="page" id="page-mcq" data-page="mcq">
+                <div class="page-header">
+                    <h1 class="page-title">Multiple Choice Quiz</h1>
+                    <p class="page-subtitle">150+ questions — conceptual, numerical, formula, and error-identification</p>
+                </div>
+                <div id="mcq-root"></div>
+            </section>
+
+            <!-- LONG ANSWER PAGE -->
+            <section class="page" id="page-long-answer" data-page="long-answer">
+                <div class="page-header">
+                    <h1 class="page-title">Long Answer &amp; Essay Practice</h1>
+                    <p class="page-subtitle">40+ exam-style questions with mark-scheme model answers</p>
+                </div>
+                <div id="long-answer-root"></div>
+            </section>
+
+            <!-- FORMULA SHEET PAGE -->
+            <section class="page" id="page-formula-sheet" data-page="formula-sheet">
+                <div class="page-header">
+                    <h1 class="page-title">Interactive Formula Sheet</h1>
+                    <p class="page-subtitle">Click any variable for its definition · Toggle formula ↔ intuition view</p>
+                </div>
+                <div id="formula-root"></div>
+            </section>
+
+            <!-- CHECKPOINTS PAGE -->
+            <section class="page" id="page-checkpoints" data-page="checkpoints">
+                <div class="page-header">
+                    <h1 class="page-title">Weekly Checkpoints</h1>
+                    <p class="page-subtitle">15–20 questions per week · Pass mark: 80% · Results saved automatically</p>
+                </div>
+                <div id="checkpoint-root"></div>
+            </section>
+
+            <!-- WEAK TOPICS PAGE -->
+            <section class="page" id="page-weak-topics" data-page="weak-topics">
+                <div class="page-header">
+                    <h1 class="page-title">Weak Topics Drill</h1>
+                    <p class="page-subtitle">Auto-populated from your incorrect answers across all modes</p>
+                </div>
+                <div id="weak-topics-root"></div>
+            </section>
+
+        </main>
+    </div><!-- /layout-body -->
+
+</div><!-- /app-wrapper -->
+
+<!-- ═══════════════════════════════════════════════
+     MODAL (formula variable pop-ups)
+═══════════════════════════════════════════════ -->
+<div class="modal-backdrop hidden" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box" id="modal-box">
+        <div class="modal-header">
+            <h3 id="modal-title">Variable Definition</h3>
+            <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">×</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TOAST NOTIFICATION
+═══════════════════════════════════════════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SCRIPTS — data files first, then modules, then main
+═══════════════════════════════════════════════ -->
+<script src="js/data/flashcards.js"></script>
+<script src="js/data/mcq.js"></script>
+<script src="js/data/longAnswer.js"></script>
+<script src="js/data/formulas.js"></script>
+<script src="js/data/checkpoints.js"></script>
+
+<script src="js/modules/dashboard.js"></script>
+<script src="js/modules/flashcards.js"></script>
+<script src="js/modules/mcq.js"></script>
+<script src="js/modules/longAnswer.js"></script>
+<script src="js/modules/formulas.js"></script>
+<script src="js/modules/checkpoints.js"></script>
+<script src="js/modules/weakTopics.js"></script>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
