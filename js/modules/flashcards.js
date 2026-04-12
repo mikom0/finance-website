@@ -109,8 +109,8 @@
         </div>
       </div>
 
-      <div class="fc-nav-row">
-        <button class="btn btn-ghost" id="fc-prev-btn">← Prev</button>
+<div class="fc-nav-row" id="fc-nav-row">
+<button class="btn btn-ghost" id="fc-prev-btn">← Prev</button>
         <div class="fc-progress-wrap">
           <div class="fc-progress-bar" id="fc-progress-bar"></div>
         </div>
