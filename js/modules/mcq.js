@@ -134,11 +134,12 @@
     const panel = document.getElementById('mcq-results-panel');
     if (!area) return;
 
-    panel.classList.add('hidden');
-    document.getElementById('mcq-empty').style.display = 'none';
+    if (panel) panel.classList.add('hidden');
+    const emptyEl = document.getElementById('mcq-empty');
+    if (emptyEl) emptyEl.style.display = 'none';
 
     if (questions.length === 0) {
-      document.getElementById('mcq-empty').style.display = 'block';
+      if (emptyEl) emptyEl.style.display = 'block';
       return;
     }
 
