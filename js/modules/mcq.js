@@ -188,47 +188,49 @@
   }
 
   function attachQuestionEvents(q) {
-    const optBtns = document.querySelectorAll('.mcq-option');
-    optBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        if (this.classList.contains('selected') || this.classList.contains('correct') || this.classList.contains('incorrect')) return;
-        const chosen = parseInt(this.dataset.idx);
-        const isCorrect = chosen === q.correct;
+    // Use the scoped container to avoid grabbing buttons from other modules
+    const optContainer = document.getElementById('mcq-options');
+    if (!optContainer) return;
 
-        // Disable all options
-        optBtns.forEach(b => b.disabled = true);
+    // Event delegation on the options container — survives MathJax re-renders
+    optContainer.addEventListener('click', function(e) {
+      const btn = e.target.closest('.mcq-option');
+      if (!btn || btn.disabled) return;
 
-        // Style selected and correct
-        this.classList.add(isCorrect ? 'correct' : 'incorrect');
-        optBtns[q.correct].classList.add('correct');
+      const optBtns = optContainer.querySelectorAll('.mcq-option');
+      const chosen = parseInt(btn.dataset.idx);
+      const isCorrect = chosen === q.correct;
 
-        // Update score
-        if (isCorrect) score++;
-        answered.push({ id: q.id, correct: isCorrect });
-        saveResult(q.id, isCorrect);
+      optBtns.forEach(b => b.disabled = true);
+      btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+      optBtns[q.correct].classList.add('correct');
 
-        // Show explanation
-        const expDiv = document.getElementById('mcq-explanation');
-        const expText = document.getElementById('mcq-explanation-text');
-        if (expDiv && expText) {
-          expText.innerHTML = q.explanation;
-          expDiv.classList.remove('hidden');
-          if (window.MathJax && MathJax.typesetPromise) {
-            MathJax.typesetPromise([expDiv]).catch(() => {});
-          }
+      if (isCorrect) score++;
+      answered.push({ id: q.id, correct: isCorrect });
+      saveResult(q.id, isCorrect);
+
+      const expDiv = document.getElementById('mcq-explanation');
+      const expText = document.getElementById('mcq-explanation-text');
+      if (expDiv && expText) {
+        expText.innerHTML = q.explanation;
+        expDiv.classList.remove('hidden');
+        if (window.MathJax && MathJax.typesetPromise) {
+          MathJax.typesetPromise([expDiv]).catch(() => {});
         }
+      }
 
-        // Show next button
-        const nextRow = document.getElementById('mcq-next-row');
-        if (nextRow) nextRow.classList.remove('hidden');
-      });
+      const nextRow = document.getElementById('mcq-next-row');
+      if (nextRow) nextRow.classList.remove('hidden');
     });
 
-    const nextBtn = document.getElementById('mcq-next-btn');
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        currentIdx++;
-        renderQuestion();
+    // Event delegation on the card for the next button
+    const card = document.getElementById('mcq-card');
+    if (card) {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('#mcq-next-btn')) {
+          currentIdx++;
+          renderQuestion();
+        }
       });
     }
   }
@@ -252,13 +254,21 @@
       <div class="mcq-grade">${grade}</div>
     `;
 
-    document.getElementById('mcq-retry-btn').addEventListener('click', () => {
+    // Clone buttons to strip any previously stacked listeners
+    const retryBtn  = document.getElementById('mcq-retry-btn');
+    const reviewBtn = document.getElementById('mcq-review-btn');
+    const newRetry  = retryBtn.cloneNode(true);
+    const newReview = reviewBtn.cloneNode(true);
+    retryBtn.replaceWith(newRetry);
+    reviewBtn.replaceWith(newReview);
+
+    newRetry.addEventListener('click', () => {
       buildQuestions();
       renderQuestion();
       panel.classList.add('hidden');
     });
 
-    document.getElementById('mcq-review-btn').addEventListener('click', () => {
+    newReview.addEventListener('click', () => {
       const reviewList = document.getElementById('mcq-review-list');
       reviewList.classList.toggle('hidden');
       if (!reviewList.classList.contains('hidden')) {
